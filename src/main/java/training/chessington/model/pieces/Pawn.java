@@ -16,11 +16,21 @@ public class Pawn extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> allowedMoves = new ArrayList<>();
-        if (colour.equals(PlayerColour.WHITE)) {
-            allowedMoves.add(new Move(from, from.plus(-1, 0)));
+        if (colour.equals(PlayerColour.WHITE) && from.getRow() != 0) {
+            if (board.get(from.plus(-1, 0)) == null) {
+                if (from.getRow() == 6) {
+                    allowedMoves.add(new Move(from, from.plus(-2, 0)));
+                }
+                allowedMoves.add(new Move(from, from.plus(-1, 0)));
+            }
         }
-        if (colour.equals(PlayerColour.BLACK)) {
-            allowedMoves.add(new Move(from, from.plus(1, 0)));
+        if (colour.equals(PlayerColour.BLACK) && from.getRow() != 7) {
+            if (board.get(from.plus(1, 0)) == null) {
+                if (from.getRow() == 1) {
+                    allowedMoves.add(new Move(from, from.plus(2, 0)));
+                }
+                allowedMoves.add(new Move(from, from.plus(1, 0)));
+            }
         }
         return allowedMoves;
     }
