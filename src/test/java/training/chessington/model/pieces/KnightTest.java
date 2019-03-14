@@ -73,6 +73,41 @@ public class KnightTest {
 
     @Test
     public void knightCannotEnterSpaceOccupiedByOwnPiece() {
+        //Arrange
+        Board board = Board.empty();
+        Piece knight = new Knight(PlayerColour.WHITE);
+        Coordinates knightCoords = new Coordinates(7, 1);
+        board.placePiece(knightCoords, knight);
+
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(6, 3);
+        board.placePiece(pawnCoords, pawn);
+
+        //Act
+        List<Move> moves = knight.getAllowedMoves(knightCoords, board);
+
+        //Asserts
+        assertThat(moves).doesNotContain(new Move(knightCoords, knightCoords.plus(-1, 2)));
+
+    }
+
+    @Test
+    public void knightCanTakeOpponentPieceInSpace() {
+        //Arrange
+        Board board = Board.empty();
+        Piece knight = new Knight(PlayerColour.WHITE);
+        Coordinates knightCoords = new Coordinates(5, 2);
+        board.placePiece(knightCoords, knight);
+
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates pawnCoords = new Coordinates(3, 3);
+        board.placePiece(pawnCoords, pawn);
+
+        //Act
+        List<Move> moves = knight.getAllowedMoves(knightCoords, board);
+
+        //Asserts
+        assertThat(moves).contains(new Move(knightCoords, knightCoords.plus(-2, 1)));
 
     }
 }
