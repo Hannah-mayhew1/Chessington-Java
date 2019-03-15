@@ -1,11 +1,9 @@
 package training.chessington.model.pieces;
 
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class King extends AbstractPiece {
@@ -15,6 +13,23 @@ public class King extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+        List<Move> allowedKingMoves = new ArrayList<>();
+        List<Move> potentialKingMoves = Arrays.asList(
+                new Move(from, from.plus(-1, 1)),
+                new Move(from, from.plus(0, 1)),
+                new Move(from, from.plus(1, 1)),
+                new Move(from, from.plus(1, -1)),
+                new Move(from, from.plus(-1, -1)),
+                new Move(from, from.plus(-1, 0)),
+                new Move(from, from.plus(0, -1)),
+                new Move(from, from.plus(1, 0))
+        );
+
+        for (Move move : potentialKingMoves) {
+            if (MoveUtilities.moveIsAllowed(move, board, this)) {
+                allowedKingMoves.add(move);
+            }
+        }
+        return allowedKingMoves;
     }
 }

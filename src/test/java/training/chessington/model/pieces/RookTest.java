@@ -13,33 +13,35 @@ import static org.assertj.core.api.Assertions.*;
 
 public class RookTest {
     @Test
-    public void rookCanMoveVertically() {
+    public void rookCanMoveAcrossAllSquaresHorizontallyAndVertically() {
         // Arrange
         Board board = Board.empty();
         Piece rook = new Rook(PlayerColour.WHITE);
-        Coordinates rookCoords = new Coordinates(0, 0);
+        Coordinates rookCoords = new Coordinates(2, 3);
         board.placePiece(rookCoords, rook);
 
         //Act
         List<Move> moves = rook.getAllowedMoves(rookCoords, board);
 
         //Asserts
-        assertThat(moves).contains(new Move(rookCoords, rookCoords.plus(1, 0)));
+        assertThat(moves).containsExactlyInAnyOrder(
+                new Move(rookCoords, rookCoords.plus(-1, 0)),
+                new Move(rookCoords, rookCoords.plus(-2, 0)),
+                new Move(rookCoords, rookCoords.plus(1, 0)),
+                new Move(rookCoords, rookCoords.plus(2, 0)),
+                new Move(rookCoords, rookCoords.plus(3, 0)),
+                new Move(rookCoords, rookCoords.plus(4, 0)),
+                new Move(rookCoords, rookCoords.plus(5, 0)),
+                new Move(rookCoords, rookCoords.plus(0, -3)),
+                new Move(rookCoords, rookCoords.plus(0, -2)),
+                new Move(rookCoords, rookCoords.plus(0, -1)),
+                new Move(rookCoords, rookCoords.plus(0, 1)),
+                new Move(rookCoords, rookCoords.plus(0, 2)),
+                new Move(rookCoords, rookCoords.plus(0, 3)),
+                new Move(rookCoords, rookCoords.plus(0, 4))
+        );
     }
-    @Test
-    public void rookCanMoveHorizontally() {
-        // Arrange
-        Board board = Board.empty();
-        Piece rook = new Rook(PlayerColour.WHITE);
-        Coordinates rookCoords = new Coordinates(0, 0);
-        board.placePiece(rookCoords, rook);
 
-        //Act
-        List<Move> moves = rook.getAllowedMoves(rookCoords, board);
-
-        //Asserts
-        assertThat(moves).contains(new Move(rookCoords, rookCoords.plus(0, 1)));
-    }
     @Test
     public void rookCannotEnterSpaceOccupiedByOwnPiece() {
         //Arrange

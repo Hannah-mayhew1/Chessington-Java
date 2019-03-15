@@ -1,9 +1,6 @@
 package training.chessington.model.pieces;
 
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,20 +26,10 @@ public class Knight extends AbstractPiece {
         );
 
         for (Move move : potentialMoves) {
-            if (moveIsAllowed(move, board)) {
+            if (MoveUtilities.moveIsAllowed(move, board, this)) {
                 allowedMoves.add(move);
             }
         }
         return allowedMoves;
-    }
-
-    private boolean moveIsAllowed(Move move, Board board) {
-        boolean moveIsAllowed = false;
-        if (move.getTo().getRow() >= 0 && move.getTo().getRow() <= 7 && move.getTo().getCol() >= 0 && move.getTo().getCol() <= 7) {
-            if (board.get(move.getTo()) == null || board.get(move.getTo()).getColour() != colour) {
-                moveIsAllowed = true;
-            }
-        }
-        return moveIsAllowed;
     }
 }

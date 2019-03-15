@@ -12,6 +12,7 @@ import static training.chessington.model.pieces.PieceAssert.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class KnightTest {
+
     @Test
     public void whiteKnightCanMoveInLShape() {
         // Arrange
