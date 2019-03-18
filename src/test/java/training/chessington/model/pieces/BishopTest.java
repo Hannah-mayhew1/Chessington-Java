@@ -1,10 +1,7 @@
 package training.chessington.model.pieces;
 
 import org.junit.Test;
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.List;
 
@@ -19,9 +16,10 @@ public class BishopTest {
         Piece bishop = new Bishop(PlayerColour.WHITE);
         Coordinates bishopCoords = new Coordinates(4, 4);
         board.placePiece(bishopCoords, bishop);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, game);
 
         //Asserts
         assertThat(moves).containsExactlyInAnyOrder(
@@ -51,9 +49,10 @@ public class BishopTest {
         Piece pawn = new Pawn(PlayerColour.WHITE);
         Coordinates pawnCoords = new Coordinates(6, 2);
         board.placePiece(pawnCoords, pawn);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(2, -2)));
@@ -71,9 +70,10 @@ public class BishopTest {
         Piece pawn = new Pawn(PlayerColour.BLACK);
         Coordinates pawnCoords = new Coordinates(2, 6);
         board.placePiece(pawnCoords, pawn);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, game);
 
         //Asserts
         assertThat(moves).contains(new Move(bishopCoords, bishopCoords.plus(-2, 2)));
@@ -91,9 +91,10 @@ public class BishopTest {
         Piece pawn = new Pawn(PlayerColour.WHITE);
         Coordinates pawnCoords = new Coordinates(2, 2);
         board.placePiece(pawnCoords, pawn);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(-4, -4)));

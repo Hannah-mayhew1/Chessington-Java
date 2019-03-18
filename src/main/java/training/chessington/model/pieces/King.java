@@ -12,7 +12,7 @@ public class King extends AbstractPiece {
     }
 
     @Override
-    public List<Move> getAllowedMoves(Coordinates from, Board board) {
+    public List<Move> getAllowedMoves(Coordinates from, Game game) {
         List<Move> allowedKingMoves = new ArrayList<>();
         List<Move> potentialKingMoves = Arrays.asList(
                 new Move(from, from.plus(-1, 1)),
@@ -26,7 +26,7 @@ public class King extends AbstractPiece {
         );
 
         for (Move move : potentialKingMoves) {
-            if (MoveUtilities.moveIsAllowed(move, board, this)) {
+            if (MoveUtilities.moveIsAllowed(move, game.getBoard(), this)) {
                 allowedKingMoves.add(move);
             }
         }

@@ -12,7 +12,7 @@ public class Rook extends AbstractPiece {
     }
 
     @Override
-    public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return MoveUtilities.getVerticalAndHorizontalMoves(from, board, this);
+    public List<Move> getAllowedMoves(Coordinates from, Game game) {
+        return MoveUtilities.getVerticalAndHorizontalMoves(from, game.getBoard(), this);
     }
 }

@@ -1,10 +1,7 @@
 package training.chessington.model.pieces;
 
 import org.junit.Test;
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.List;
 
@@ -19,9 +16,10 @@ public class KingTest {
         Piece king = new King(PlayerColour.WHITE);
         Coordinates kingCoords = new Coordinates(4, 4);
         board.placePiece(kingCoords, king);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = king.getAllowedMoves(kingCoords, board);
+        List<Move> moves = king.getAllowedMoves(kingCoords, game);
 
         //Asserts
         assertThat(moves).containsExactlyInAnyOrder(
@@ -46,9 +44,10 @@ public class KingTest {
         Piece pawn = new Pawn(PlayerColour.WHITE);
         Coordinates pawnCoords = new Coordinates(5, 4);
         board.placePiece(pawnCoords, pawn);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = king.getAllowedMoves(kingCoords, board);
+        List<Move> moves = king.getAllowedMoves(kingCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(kingCoords, kingCoords.plus(1, 0)));
@@ -64,9 +63,10 @@ public class KingTest {
         Piece pawn = new Pawn(PlayerColour.BLACK);
         Coordinates pawnCoords = new Coordinates(4, 2);
         board.placePiece(pawnCoords, pawn);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = king.getAllowedMoves(kingCoords, board);
+        List<Move> moves = king.getAllowedMoves(kingCoords, game);
 
         //Asserts
         assertThat(moves).contains(new Move(kingCoords, kingCoords.plus(0, -1)));

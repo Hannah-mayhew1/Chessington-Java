@@ -11,10 +11,20 @@ public class Game {
 
     private PlayerColour nextPlayer = PlayerColour.WHITE;
 
+    public List<Move> playedMoves = new ArrayList<>();
+
+    public List<Move> getPlayedMoves() {
+        return playedMoves;
+    }
+
     private boolean isEnded = false;
 
     public Game(Board board) {
         this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     public Piece pieceAt(int row, int col) {
@@ -31,7 +41,7 @@ public class Game {
             return new ArrayList<>();
         }
 
-        return piece.getAllowedMoves(from, board);
+        return piece.getAllowedMoves(from, this);
     }
 
     public void makeMove(Move move) throws InvalidMoveException {
@@ -51,11 +61,13 @@ public class Game {
             throw new InvalidMoveException(String.format("Wrong colour piece - it is %s's turn", nextPlayer));
         }
 
-        if (!piece.getAllowedMoves(move.getFrom(), board).contains(move)) {
+        if (!piece.getAllowedMoves(move.getFrom(), this).contains(move)) {
             throw new InvalidMoveException(String.format("Cannot move piece %s from %s to %s", piece, from, to));
         }
 
+        checkForEnPassantMove(move);
         board.move(from, to);
+        playedMoves.add(move);
         nextPlayer = nextPlayer == PlayerColour.WHITE ? PlayerColour.BLACK : PlayerColour.WHITE;
     }
 
@@ -65,5 +77,22 @@ public class Game {
 
     public String getResult() {
         return null;
+    }
+
+    public void checkForEnPassantMove(Move move) {
+        if (!this.getPlayedMoves().isEmpty()) {
+            Move lastMove = this.getPlayedMoves().get(this.getPlayedMoves().size() - 1);
+            Piece lastPiece = this.getBoard().get(lastMove.getTo());
+            if (lastPiece.getType() == Piece.PieceType.PAWN) {
+                if (Math.abs(lastMove.getTo().getRow() - lastMove.getFrom().getRow()) == 2) {
+                    int offset = lastPiece.getColour() == PlayerColour.BLACK ? 1 : -1;
+                    Coordinates middleSquare = lastMove.getFrom().plus(offset, 0);
+                    if (move.getTo().equals(middleSquare)) {
+                        board.removePiece(lastMove.getTo());
+                    }
+                }
+            }
+        }
+
     }
 }

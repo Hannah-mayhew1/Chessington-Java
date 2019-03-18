@@ -11,10 +11,10 @@ public class Queen extends AbstractPiece {
     }
 
     @Override
-    public List<Move> getAllowedMoves(Coordinates from, Board board) {
+    public List<Move> getAllowedMoves(Coordinates from, Game game) {
         List<Move> queenMoves = new ArrayList<>();
-        List<Move> diagonalMoves = MoveUtilities.getDiagonalMoves(from, board, this);
-        List<Move> verticalAndHorizontalMoves = MoveUtilities.getVerticalAndHorizontalMoves(from, board, this);
+        List<Move> diagonalMoves = MoveUtilities.getDiagonalMoves(from,game.getBoard(), this);
+        List<Move> verticalAndHorizontalMoves = MoveUtilities.getVerticalAndHorizontalMoves(from, game.getBoard(), this);
 
         queenMoves.addAll(diagonalMoves);
         queenMoves.addAll(verticalAndHorizontalMoves);

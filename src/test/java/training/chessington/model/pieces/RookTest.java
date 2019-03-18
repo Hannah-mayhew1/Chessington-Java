@@ -1,10 +1,7 @@
 package training.chessington.model.pieces;
 
 import org.junit.Test;
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.List;
 
@@ -19,9 +16,10 @@ public class RookTest {
         Piece rook = new Rook(PlayerColour.WHITE);
         Coordinates rookCoords = new Coordinates(2, 3);
         board.placePiece(rookCoords, rook);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = rook.getAllowedMoves(rookCoords, board);
+        List<Move> moves = rook.getAllowedMoves(rookCoords, game);
 
         //Asserts
         assertThat(moves).containsExactlyInAnyOrder(
@@ -53,9 +51,10 @@ public class RookTest {
         Piece knight = new Knight(PlayerColour.WHITE);
         Coordinates knightCoords = new Coordinates(7, 1);
         board.placePiece(knightCoords, knight);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = knight.getAllowedMoves(rookCoords, board);
+        List<Move> moves = knight.getAllowedMoves(rookCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(rookCoords, rookCoords.plus(0, 1)));
@@ -72,9 +71,10 @@ public class RookTest {
         Piece knight = new Knight(PlayerColour.BLACK);
         Coordinates knightCoords = new Coordinates(7, 1);
         board.placePiece(knightCoords, knight);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = knight.getAllowedMoves(rookCoords, board);
+        List<Move> moves = knight.getAllowedMoves(rookCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(rookCoords, knightCoords));
@@ -91,9 +91,10 @@ public class RookTest {
         Piece knight = new Knight(PlayerColour.WHITE);
         Coordinates knightCoords = new Coordinates(4, 0);
         board.placePiece(knightCoords, knight);
+        Game game = new Game(board);
 
         //Act
-        List<Move> moves = rook.getAllowedMoves(rookCoords, board);
+        List<Move> moves = rook.getAllowedMoves(rookCoords, game);
 
         //Asserts
         assertThat(moves).doesNotContain(new Move(rookCoords, rookCoords.plus(-3, 0)));
